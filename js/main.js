@@ -8,9 +8,9 @@
  * Tweak delays, durations, and cycle periods here:
  * ═══════════════════════════════════════════════════════════════════ */
 const LINE_1_START_DELAY_MS = 1000;   // Delay in ms after page load before Line 1 first rolls
-const LINE_GAP_SECONDS = 10;          // Seconds after Line 1 starts before Line 2 starts (never roll both together)
+const LINE_GAP_SECONDS = 10;          // Seconds gap between consecutive lines rolling (exact 10s gap)
 const ROLL_DURATION_MS = 1400;        // Duration in ms of one 180° vertical roll
-const CYCLE_SECONDS = 20;             // Total cycle period in seconds (Line 1 rolls at 0s, 20s... Line 2 at 10s, 30s...)
+const CYCLE_SECONDS = 30;             // Total cycle period in seconds (Line 1: 0s, Line 2: 10s, Line 3: 20s)
 const ROLL_DIRECTION = -1;            // -1 = rolls forward toward viewer (slot-machine drum), 1 = rolls bottom-up
 
 
@@ -55,32 +55,40 @@ const ROLL_DIRECTION = -1;            // -1 = rolls forward toward viewer (slot-
   overlayLinks.forEach(link => link.addEventListener('click', () => toggleOverlay(false)));
 
   /* ═════════════════════════════════════════════════════════
-     3-D MAIN HEADING VERTICAL ROLL CONTROLLER
-     - Two-line main heading rolling vertically like slot-machine drums (rotateX)
-     - Line 1 rolls FIRST at t=0 (after LINE_1_START_DELAY_MS = 1000ms)
-     - Line 2 rolls 10s later (LINE_GAP_SECONDS = 10s), never overlapping
+     3-D MAIN HEADING VERTICAL ROLL CONTROLLER (3 Staggered Lines)
+     - 3-line hero heading rolling vertically like slot-machine drums (rotateX)
+     - Line 1 ("Milan Sherin") rolls FIRST at t=0 (after LINE_1_START_DELAY_MS = 1000ms)
+     - Line 2 ("Security Researcher &") starts 10s after Line 1 (t=10s)
+     - Line 3 ("Network Engineer") starts 10s after Line 2 (t=20s)
+     - No two lines ever roll at the same time
+     - Sequence repeats every CYCLE_SECONDS = 30s
      - Snappy cubic-bezier(0.65, 0, 0.35, 1) transition over ROLL_DURATION_MS = 1400ms
-     - Sequence repeats every CYCLE_SECONDS = 20s (Line 1 at 0s, 20s... Line 2 at 10s, 30s...)
-     - Angular accumulation: turns forward endlessly in the same direction, never rewinding
-     - Dynamic line height measurement for accurate translateZ on mobile wrapping
+     - Continuous single-controller rAF clock with ZERO timing drift
      - Snaps to exact square angle at rest (no layout shift, zero blur)
-     - IntersectionObserver & document.visibilitychange pauses/resumes cleanly without drift
-     - Accessible: full title in aria-label, back faces marked aria-hidden
+     - IntersectionObserver & document.visibilitychange pauses/resumes cleanly
      - Respects prefers-reduced-motion: displays static heading
      ═════════════════════════════════════════════════════════ */
   function initHeadingRoll() {
     const heading = document.querySelector('.s-intro__content-title');
-    const line1Stage = document.querySelector('.heading-3d-line-1 .heading-3d-stage');
-    const line1Cuboid = document.querySelector('.heading-3d-line-1 .heading-3d-cuboid');
-    const line1Front = document.querySelector('.heading-3d-line-1 .heading-3d-front');
-    const line1Back = document.querySelector('.heading-3d-line-1 .heading-3d-back');
+    const lineElements = [
+      document.querySelector('.heading-3d-line-1'),
+      document.querySelector('.heading-3d-line-2'),
+      document.querySelector('.heading-3d-line-3')
+    ];
 
-    const line2Stage = document.querySelector('.heading-3d-line-2 .heading-3d-stage');
-    const line2Cuboid = document.querySelector('.heading-3d-line-2 .heading-3d-cuboid');
-    const line2Front = document.querySelector('.heading-3d-line-2 .heading-3d-front');
-    const line2Back = document.querySelector('.heading-3d-line-2 .heading-3d-back');
+    if (!heading || lineElements.some(el => !el)) return;
 
-    if (!heading || !line1Stage || !line1Cuboid || !line2Stage || !line2Cuboid) return;
+    const lineObjects = lineElements.map((lineEl, index) => {
+      return {
+        el: lineEl,
+        stage: lineEl.querySelector('.heading-3d-stage'),
+        cuboid: lineEl.querySelector('.heading-3d-cuboid'),
+        front: lineEl.querySelector('.heading-3d-front'),
+        back: lineEl.querySelector('.heading-3d-back'),
+        halfHeight: 0,
+        startOffsetMs: index * LINE_GAP_SECONDS * 1000
+      };
+    });
 
     // Cubic-bezier evaluator for cubic-bezier(0.65, 0, 0.35, 1)
     function createCubicBezier(x1, y1, x2, y2) {
@@ -123,22 +131,14 @@ const ROLL_DIRECTION = -1;            // -1 = rolls forward toward viewer (slot-
     const easeRoll = createCubicBezier(0.65, 0, 0.35, 1);
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    let halfHeight1 = 0;
-    let halfHeight2 = 0;
-
     // Responsive line height measurement: recalculates translateZ on mobile wrapping / resize
     function measureHeights() {
-      const h1 = (line1Front && line1Front.offsetHeight) || line1Stage.offsetHeight || 60;
-      const h2 = (line2Front && line2Front.offsetHeight) || line2Stage.offsetHeight || 60;
-
-      halfHeight1 = Math.round(h1 / 2);
-      halfHeight2 = Math.round(h2 / 2);
-
-      line1Stage.style.setProperty('--line-half-height', `${halfHeight1}px`);
-      line2Stage.style.setProperty('--line-half-height', `${halfHeight2}px`);
-
-      if (line1Back) line1Back.style.minHeight = `${h1}px`;
-      if (line2Back) line2Back.style.minHeight = `${h2}px`;
+      lineObjects.forEach(obj => {
+        const h = (obj.front && obj.front.offsetHeight) || (obj.stage && obj.stage.offsetHeight) || 60;
+        obj.halfHeight = Math.round(h / 2);
+        if (obj.stage) obj.stage.style.setProperty('--line-half-height', `${obj.halfHeight}px`);
+        if (obj.back) obj.back.style.minHeight = `${h}px`;
+      });
     }
 
     measureHeights();
@@ -158,23 +158,25 @@ const ROLL_DIRECTION = -1;            // -1 = rolls forward toward viewer (slot-
 
     function render(timeMs) {
       if (prefersReducedMotion.matches) {
-        line1Cuboid.classList.add('is-at-rest');
-        line2Cuboid.classList.add('is-at-rest');
-        line1Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight1}px) rotateX(0deg)`;
-        line2Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight2}px) rotateX(0deg)`;
+        lineObjects.forEach(obj => {
+          if (!obj.cuboid) return;
+          obj.cuboid.classList.add('is-at-rest');
+          obj.cuboid.style.transform = `translate3d(0, 0, ${-obj.halfHeight}px) rotateX(0deg)`;
+        });
         return;
       }
 
-      if (halfHeight1 === 0 || halfHeight2 === 0) {
+      if (lineObjects.some(obj => obj.halfHeight === 0)) {
         measureHeights();
       }
 
-      // Initial pre-delay: hold both lines static at rest (0°)
+      // Initial pre-delay: hold all lines static at rest (0°)
       if (timeMs < LINE_1_START_DELAY_MS) {
-        line1Cuboid.classList.add('is-at-rest');
-        line2Cuboid.classList.add('is-at-rest');
-        line1Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight1}px) rotateX(0deg)`;
-        line2Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight2}px) rotateX(0deg)`;
+        lineObjects.forEach(obj => {
+          if (!obj.cuboid) return;
+          obj.cuboid.classList.add('is-at-rest');
+          obj.cuboid.style.transform = `translate3d(0, 0, ${-obj.halfHeight}px) rotateX(0deg)`;
+        });
         return;
       }
 
@@ -183,47 +185,34 @@ const ROLL_DIRECTION = -1;            // -1 = rolls forward toward viewer (slot-
       const cycleIndex = Math.floor(elapsed / cycleMs);
       const timeInCycle = elapsed % cycleMs;
 
-      // Line 1: rolls at beginning of cycle (t = 0 to ROLL_DURATION_MS)
-      let deg1;
-      const isLine1Rolling = timeInCycle < ROLL_DURATION_MS;
-      if (isLine1Rolling) {
-        line1Cuboid.classList.remove('is-at-rest');
-        const p1 = timeInCycle / ROLL_DURATION_MS;
-        const e1 = easeRoll(p1);
-        deg1 = ROLL_DIRECTION * (cycleIndex + e1) * 180;
-      } else {
-        // Snap exactly to integer multiple of 180° at rest
-        line1Cuboid.classList.add('is-at-rest');
-        deg1 = ROLL_DIRECTION * (cycleIndex + 1) * 180;
-      }
+      lineObjects.forEach(obj => {
+        if (!obj.cuboid) return;
+        const lineStart = obj.startOffsetMs;
+        const lineEnd = lineStart + ROLL_DURATION_MS;
+        let deg;
+        const isRolling = timeInCycle >= lineStart && timeInCycle < lineEnd;
 
-      // Line 2: rolls at LINE_GAP_SECONDS (exact 10s after Line 1 starts)
-      const l2Start = LINE_GAP_SECONDS * 1000;
-      const l2End = l2Start + ROLL_DURATION_MS;
+        if (timeInCycle < lineStart) {
+          // Sits still before its roll starts in this cycle
+          obj.cuboid.classList.add('is-at-rest');
+          deg = ROLL_DIRECTION * cycleIndex * 180;
+        } else if (isRolling) {
+          // Rolling with snappy cubic-bezier easing
+          obj.cuboid.classList.remove('is-at-rest');
+          const p = (timeInCycle - lineStart) / ROLL_DURATION_MS;
+          const e = easeRoll(p);
+          deg = ROLL_DIRECTION * (cycleIndex + e) * 180;
+        } else {
+          // Snaps exactly to integer multiple of 180° at rest
+          obj.cuboid.classList.add('is-at-rest');
+          deg = ROLL_DIRECTION * (cycleIndex + 1) * 180;
+        }
 
-      let deg2;
-      const isLine2Rolling = timeInCycle >= l2Start && timeInCycle < l2End;
-      if (timeInCycle < l2Start) {
-        // Line 2 sits perfectly still before its roll starts
-        line2Cuboid.classList.add('is-at-rest');
-        deg2 = ROLL_DIRECTION * cycleIndex * 180;
-      } else if (isLine2Rolling) {
-        line2Cuboid.classList.remove('is-at-rest');
-        const p2 = (timeInCycle - l2Start) / ROLL_DURATION_MS;
-        const e2 = easeRoll(p2);
-        deg2 = ROLL_DIRECTION * (cycleIndex + e2) * 180;
-      } else {
-        // Snap exactly to integer multiple of 180° at rest
-        line2Cuboid.classList.add('is-at-rest');
-        deg2 = ROLL_DIRECTION * (cycleIndex + 1) * 180;
-      }
-
-      const rot1Str = isLine1Rolling ? deg1.toFixed(3) : Math.round(deg1).toString();
-      const rot2Str = isLine2Rolling ? deg2.toFixed(3) : Math.round(deg2).toString();
-
-      line1Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight1}px) rotateX(${rot1Str}deg)`;
-      line2Cuboid.style.transform = `translate3d(0, 0, ${-halfHeight2}px) rotateX(${rot2Str}deg)`;
+        const rotStr = isRolling ? deg.toFixed(3) : Math.round(deg).toString();
+        obj.cuboid.style.transform = `translate3d(0, 0, ${-obj.halfHeight}px) rotateX(${rotStr}deg)`;
+      });
     }
+
 
     function loop(now) {
       if (!isRunning) return;

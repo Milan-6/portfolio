@@ -67,12 +67,14 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   3-D MAIN HEADING VERTICAL ROLL (Two-Line Cuboid Roll)
+   3-D MAIN HEADING VERTICAL ROLL (3-Line Staggered Cuboids)
    ══════════════════════════════════════════════════════════*/
 
 .s-intro__content-title {
   position: relative;
   line-height: 1.05;
+  font-size: clamp(1.5rem, 3.8vw, 2.9rem);
+  letter-spacing: -0.05em;
 }
 
 /* Line wrapper */
@@ -110,6 +112,7 @@ body {
 .heading-3d-face {
   display: block;
   width: 100%;
+  white-space: nowrap;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
