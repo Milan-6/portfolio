@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milan Sherin — Systems & AI Security Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        studio: {
+                            bg: '#f5f5f4',
+                            canvas: '#ffffff',
+                            text: '#0f0f10',
+                            muted: '#71717a',
+                            lightBorder: '#e4e4e7',
+                            darkBg: '#09090b',
+                            darkCanvas: '#050505',
+                            darkText: '#f4f4f5',
+                            darkBorder: '#27272a'
+                        }
+                    },
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tightest: '-0.06em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Editorial Swiss Styling */
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .kinetic-word {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .kinetic-exit {
+            transform: translateY(-80%);
+            opacity: 0;
+            position: absolute;
+        }
+
+        .kinetic-enter {
+            transform: translateY(80%);
+            opacity: 0;
+        }
+
+        .kinetic-active {
+            transform: translateY(0%);
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar for minimal canvas */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(150, 150, 150, 0.25);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 100, 100, 0.5);
+        }
+
+        /* Subtle grid background */
+        .bg-studio-grid {
+            background-size: 32px 32px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        }
+        .dark .bg-studio-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        }
+
+        /* Smooth canvas frame transitions */
+        .canvas-frame {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Monochrome image filter */
+        .editorial-img {
+            filter: grayscale(100%) contrast(108%);
+            transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease;
+        }
+        .editorial-img:hover {
+            filter: grayscale(20%) contrast(102%);
+            transform: scale(1.015);
+        }
+    </style>
+</head>
+
+<body class="bg-studio-bg text-studio-text dark:bg-studio-darkBg dark:text-studio-darkText min-h-screen transition-colors duration-500 overflow-x-hidden selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
+
+    <!-- Background Ambient Grid / Desk Wrapper -->
+    <div class="fixed inset-0 bg-studio-grid pointer-events-none opacity-80 z-0"></div>
+
+    <!-- Main Canvas Frame Container (Mimicking the floating window shown in the video) -->
+    <div id="viewportContainer" class="relative z-10 w-full min-h-screen px-3 py-3 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10 flex flex-col justify-between">
+        
+        <!-- The Floating Editorial Studio Board -->
+        <main id="studioBoard" class="canvas-frame relative w-full bg-white dark:bg-studio-darkCanvas border border-studio-lightBorder dark:border-studio-darkBorder shadow-2xl rounded-sm overflow-hidden flex flex-col">
+            
+            <!-- TOP BAR / STUDIO HEADER -->
+            <header class="w-full border-b border-studio-lightBorder dark:border-studio-darkBorder px-6 sm:px-10 py-5 flex items-center justify-between bg-white/95 dark:bg-studio-darkCanvas/95 backdrop-blur z-30 sticky top-0">
+                <div class="flex items-center space-x-6">
+                    <a href="#hero" class="group flex items-center space-x-3">
+                        <span class="font-extrabold text-xl sm:text-2xl tracking-tighter uppercase font-sans text-black dark:text-white group-hover:opacity-70 transition-opacity">
+                            Milan Sherin
+                        </span>
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </a>
+                    <span class="hidden md:inline-block text-xs font-mono tracking-widest text-studio-muted uppercase">
+                        SOCI-NIAT · Joy University
+                    </span>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center space-x-3 sm:space-x-6">
+                    <!-- GitHub Quick Link -->
+                    <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-studio-muted hover:text-black dark:hover:text-white transition-colors">
+                        <span>GitHub</span>
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+
+                    <!-- Inversion / Dark Mode Toggle (Inspired by video inversion at 00:14) -->
+                    <button id="themeToggleBtn" aria-label="Toggle Inversion Mode" class="p-2 border border-studio-lightBorder dark:border-studio-darkBorder rounded text-xs font-mono uppercase tracking-wider hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors flex items-center space-x-1.5">
+                        <span id="themeIcon" class="w-3 h-3 rounded-full border border-black dark:border-white bg-black dark:bg-white inline-block"></span>
+                        <span id="themeText" class="hidden sm:inline">Invert</span>
+                    </button>
+
+                    <!-- Studio Overlay Drawer Trigger ("X" / Menu from video) -->
+                    <button id="menuOverlayToggle" aria-label="Toggle Studio Overlay" class="w-10 h-10 flex items-center justify-center border border-studio-lightBorder dark:border-studio-darkBorder rounded hover:border-black dark:hover:border-white transition-colors group">
+                        <span id="menuIconBars" class="text-xl font-light leading-none group-hover:scale-110 transition-transform">☰</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- FULLSCREEN OVERLAY DRAWER (As seen in Atlason layout with 'X') -->
+            <div id="studioMenuOverlay" class="fixed inset-0 bg-white/98 dark:bg-studio-darkCanvas/98 backdrop-blur-xl z-50 flex flex-col justify-between p-8 sm:p-14 lg:p-20 opacity-0 pointer-events-none transition-opacity duration-300">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-2">Milan Sherin · Engineering Studio</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest">Index & Philosophy</h2>
+                    </div>
+                    <button id="menuCloseBtn" class="text-3xl sm:text-4xl font-light hover:opacity-50 transition-opacity p-2">✕</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 my-auto py-10">
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Core Focus</h3>
+                        <ul class="space-y-3 text-lg sm:text-xl font-medium tracking-tight">
+                            <li><a href="#projects" class="overlay-nav-link hover:underline">01 / Artificial Intelligence & Vision</a></li>
+                            <li><a href="#projects" class="overlay-nav-link hover:underline">02 / Linux & Systems Security</a></li>
+                            <li><a href="#projects" class="overlay-nav-link hover:underline">03 / Autonomous Workflows (n8n)</a></li>
+                            <li><a href="#projects" class="overlay-nav-link hover:underline">04 / Cryptographic Primitives</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Coordinates & Rig</h3>
+                        <p class="text-sm leading-relaxed text-studio-muted font-sans">
+                            Joy University, Kanyakumari, Tamil Nadu.<br>
+                            Alphonsa Hostel, Gandhi Block #303.<br>
+                            Origins: Idukki, Kerala, India.<br>
+                            Hardware: ASUS TUF A15 (Ryzen 7 · RTX 3050 · 16GB) · Ubuntu Linux VM (VMware).
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Direct Contact</h3>
+                        <p class="text-sm font-mono text-studio-muted mb-2">INQUIRIES & BUG BOUNTY</p>
+                        <a href="mailto:milansherin@gmail.com" class="text-lg font-semibold block hover:text-studio-muted transition-colors">milansherin@gmail.com</a>
+                        <p class="text-xs font-mono text-studio-muted mt-4">GITHUB: Milan-6 · CODEWARS: 6 Kyu</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center text-xs font-mono text-studio-muted border-t border-studio-lightBorder dark:border-studio-darkBorder pt-4">
+                    <span>© 2026 MILAN SHERIN STUDIO</span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+
+            <!-- SECTION 1: HERO / THE ATALSON-STYLE KINETIC HEADER (Matching Video 00:08 - 00:21) -->
+            <section id="hero" class="relative px-6 sm:px-12 lg:px-20 pt-16 pb-20 sm:pt-24 sm:pb-32 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+                    
+                    <!-- LEFT COLUMN: Huge Kinetic Stacked Word Block (Video 00:08 - 00:21) -->
+                    <div class="lg:col-span-7 flex flex-col justify-center">
+                        <div class="text-xs sm:text-sm font-mono uppercase tracking-widest text-studio-muted mb-4 flex items-center space-x-2">
+                            <span class="inline-block w-4 h-[1px] bg-studio-muted"></span>
+                            <span>Engineering Studio & Systems Research</span>
+                        </div>
+
+                        <!-- Kinetic Headline Stack -->
+                        <div class="text-[2.75rem] sm:text-[4.2rem] md:text-[5.2rem] lg:text-[5.8rem] font-black tracking-tightest leading-[0.98] select-none">
+                            <div class="text-neutral-400 dark:text-neutral-600 transition-colors">Milan Sherin</div>
+                            
+                            <!-- Cycling Kinetic Row 1 -->
+                            <div class="relative h-[1.1em] overflow-hidden">
+                                <div id="kineticRow1" class="font-extrabold text-black dark:text-white">
+                                    <span class="kinetic-word block">Systems</span>
+                                </div>
+                            </div>
+
+                            <!-- Cycling Kinetic Row 2 -->
+                            <div class="relative h-[1.1em] overflow-hidden text-neutral-400 dark:text-neutral-500">
+                                <div id="kineticRow2">
+                                    <span class="kinetic-word block">AI Security</span>
+                                </div>
+                            </div>
+
+                            <!-- Cycling Kinetic Row 3 -->
+                            <div class="relative h-[1.1em] overflow-hidden text-black dark:text-white">
+                                <div id="kineticRow3">
+                                    <span class="kinetic-word block">Architecture</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Minimal Prompt/Philosophy excerpt below the kinetic header -->
+                        <div class="mt-8 sm:mt-12 flex flex-wrap gap-4 items-center">
+                            <a href="#projects" class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-semibold text-xs uppercase tracking-widest hover:opacity-85 transition-opacity inline-flex items-center space-x-2">
+                                <span>Explore Case Studies</span>
+                                <span>↓</span>
+                            </a>
+                            <a href="#about" class="px-6 py-3 border border-studio-lightBorder dark:border-studio-darkBorder text-xs uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors">
+                                <span>Terminal & Rig Profile</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Narrative Synopsis + Editorial Photo (Matching Video 00:15) -->
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-8 lg:pl-6 border-l-0 lg:border-l border-studio-lightBorder dark:border-studio-darkBorder">
+                        <div class="space-y-4">
+                            <p class="text-sm sm:text-base font-normal text-studio-muted leading-relaxed">
+                                Milan Sherin is an undergraduate AI and systems security engineer at Joy University’s School of Computer Science & AI (SOCI-NIAT). With roots in Idukki, Kerala, he focuses on lower-level OS execution, network reconnaissance, and hardened runtime systems for machine intelligence.
+                            </p>
+                            <p class="text-xs sm:text-sm font-mono text-neutral-500 dark:text-neutral-400 leading-normal">
+                                "You don't learn programming just to write scripts. You learn to understand how systems communicate, how boundaries fail, and how to engineer resilient software that endures."
+                            </p>
+                        </div>
+
+                        <!-- Editorial Architectural Imagery (Video 00:03 - 00:15) -->
+                        <div class="relative group overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder">
+                            <div class="aspect-[4/3] w-full overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" 
+                                     alt="Low level code and systems analysis" 
+                                     class="editorial-img w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                    <div class="text-white">
+                                        <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-300">Environment Node</p>
+                                        <p class="text-xs font-semibold">ASUS TUF A15 · Ubuntu VM · Vim Workflow</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Status Pill -->
+                        <div class="p-3 bg-neutral-50 dark:bg-neutral-900/50 border border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-studio-muted">STATUS</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">B.Tech CSE (AI) · Sec G · Roll 2026BTAI130</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 2: EDITORIAL STATEMENT (Matching Video 00:01 - 00:05 text block) -->
+            <section class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-950/20">
+                <div class="max-w-4xl">
+                    <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-4">Philosophy & Character</p>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-snug">
+                        "At the center of our work is curiosity, a relentless demand for system clarity, and the conviction that everything we imagine can be engineered with precision."
+                    </h2>
+                    <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-studio-lightBorder dark:border-studio-darkBorder text-xs font-mono text-studio-muted">
+                        <div>
+                            <span class="block text-black dark:text-white font-bold text-sm">99%</span>
+                            SSLC Examination
+                        </div>
+                        <div>
+                            <span class="block text-black dark:text-white font-bold text-sm">94.5%</span>
+                            Class 12 CS Board
+                        </div>
+                        <div>
+                            <span class="block text-black dark:text-white font-bold text-sm">6 Kyu</span>
+                            Codewars Rank
+                        </div>
+                        <div>
+                            <span class="block text-black dark:text-white font-bold text-sm">04:00 AM</span>
+                            Daily Dev Block
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: CASE STUDIES & SELECTED PROJECTS (Matching Video 00:06 - 00:07) -->
+            <section id="projects" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">Portfolio / Repositories</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest mt-1">Case Studies</h2>
+                    </div>
+                    <div class="mt-4 sm:mt-0 text-xs font-mono text-studio-muted">
+                        GITHUB: <a href="https://github.com/Milan-6" target="_blank" class="text-black dark:text-white underline hover:no-underline">@Milan-6</a>
+                    </div>
+                </div>
+
+                <!-- Case Study Grid (Clean Minimalist Cards from Video 00:06 - 00:07) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Project 1: VERBA -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('verba')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" 
+                                 alt="VERBA ISL Recognition" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                Vision AI
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>VERBA — Sign Language AI</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">MediaPipe · LSTM/GRU · FastAPI WebSockets · ONNX</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            Real-time Indian Sign Language gesture recognition pipeline streaming landmark embeddings over bi-directional WebSockets.
+                        </p>
+                    </article>
+
+                    <!-- Project 2: CLI Log File Analyzer -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('log_analyzer')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" 
+                                 alt="CLI Log Analyzer" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                Systems Tool
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>CLI Log File Analyzer</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Python · OOP Architecture · RegEx · Telemetry</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            High-throughput unstructured log parsing utility. Categorizes server events, parses status codes, and generates JSON summaries.
+                        </p>
+                    </article>
+
+                    <!-- Project 3: Automation Pipeline (n8n) -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('n8n_pipeline')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Multi-Service Automation Pipeline" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                Automation
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>Multi-Service Automation</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">n8n Community · Gemini LLM · REST APIs · Sheets</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            Self-hosted orchestrator that digests RSS and environmental feeds, generates contextual drafts via LLMs, and triggers LinkedIn releases.
+                        </p>
+                    </article>
+
+                    <!-- Project 4: Password Vault CLI -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('password_vault')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Password Vault CLI" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                Cryptography
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>Password Vault CLI</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Fernet Symmetric Crypto · PBKDF2 · Python OOP</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            Master-key secured terminal vault implementing zero plaintext storage and authenticated symmetric decryption.
+                        </p>
+                    </article>
+
+                    <!-- Project 5: Network Asset & CVE Tracker -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('cve_tracker')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Network Asset and CVE Tracker" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                SecOps
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>Network Asset & CVE Tracker</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Python · Vulnerability Auditing · CVSS Scoring</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            Endpoint discovery tool designed to map active infrastructure nodes against Common Vulnerabilities and Exposures (CVE) indices.
+                        </p>
+                    </article>
+
+                    <!-- Project 6: Weather & Air Quality CLI -->
+                    <article class="group cursor-pointer flex flex-col" onclick="openCaseStudy('weather_cli')">
+                        <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Weather & Air Quality CLI" 
+                                 class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">
+                                API Tool
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight group-hover:underline flex items-center justify-between">
+                            <span>Weather & AQI CLI</span>
+                            <span class="text-xs font-mono text-studio-muted">↗</span>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Dual REST APIs · Schema Normalization · Caching</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
+                            Resilient terminal client unifying divergent weather and pollution payloads with caching and fallback degradation.
+                        </p>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- SECTION 4: DETAILED PROFILE & ENGINEERING RIG -->
+            <section id="about" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <div class="lg:col-span-5">
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-2">Systems & Environment</p>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tightest">Workstation, Terminal & Rig</h2>
+                        
+                        <div class="mt-6 space-y-4 text-sm text-studio-muted leading-relaxed">
+                            <p>
+                                Operating under the moniker <span class="text-black dark:text-white font-mono font-semibold">"MITNICK"</span>, Milan prioritizes raw terminal proficiency and fine-tuned control over graphical abstractions.
+                            </p>
+                            <p>
+                                Rather than developing entirely within managed high-level containers, his daily driver relies on an Ubuntu Linux virtual machine deployed on VMware Workstation Pro, with Vim keybindings in VS Code to maintain keyboard-driven execution speed.
+                            </p>
+                        </div>
+
+                        <!-- Audio & Setup Spec Widget -->
+                        <div class="mt-8 p-4 bg-neutral-50 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder text-xs font-mono">
+                            <div class="text-neutral-400 uppercase tracking-widest mb-3">Hardware Rig Specs</div>
+                            <ul class="space-y-1.5 text-neutral-800 dark:text-neutral-200">
+                                <li>• Device: ASUS TUF Gaming A15 (15.6")</li>
+                                <li>• CPU: AMD Ryzen 7 Series</li>
+                                <li>• GPU: NVIDIA GeForce RTX 3050 Laptop GPU</li>
+                                <li>• RAM: 16 GB DDR4/DDR5</li>
+                                <li>• Custom Skin: Black camo with copper traces ("MITNICK")</li>
+                                <li>• Virtualization: Ubuntu Linux (3 vCPUs, 8GB allocated)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Skills & Methodology Grid -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 lg:pl-6">
+                        
+                        <!-- Block 1: Security & Recon -->
+                        <div class="p-6 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas">
+                            <span class="text-xs font-mono uppercase text-studio-muted">01 / Security & Network</span>
+                            <h3 class="text-xl font-bold tracking-tight mt-2 mb-3">Offensive & Defense</h3>
+                            <p class="text-xs text-studio-muted leading-relaxed mb-4">
+                                Network mapping, port reconnaissance, and protocol analysis trained through Jeremy’s IT Lab (CCNA) and simulated server drills.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Nmap</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Hydra</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">SSH/SCP</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">API Bug Bounty</span>
+                            </div>
+                        </div>
+
+                        <!-- Block 2: Python & DSA -->
+                        <div class="p-6 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas">
+                            <span class="text-xs font-mono uppercase text-studio-muted">02 / Algorithmic Core</span>
+                            <h3 class="text-xl font-bold tracking-tight mt-2 mb-3">Python & C++ Engine</h3>
+                            <p class="text-xs text-studio-muted leading-relaxed mb-4">
+                                Advanced OOP principles, context managers, regex pipelines, and memory optimization with pointers in C++ for performance-critical execution.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Python 3</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">C++</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">6 Kyu Codewars</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">DSA</span>
+                            </div>
+                        </div>
+
+                        <!-- Block 3: Automation -->
+                        <div class="p-6 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas">
+                            <span class="text-xs font-mono uppercase text-studio-muted">03 / Autonomous Pipelines</span>
+                            <h3 class="text-xl font-bold tracking-tight mt-2 mb-3">n8n & LLM Orchestration</h3>
+                            <p class="text-xs text-studio-muted leading-relaxed mb-4">
+                                Connecting LLM function calls, social syndication, and API data pipelines without manual overhead.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">n8n</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Gemini API</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Webhooks</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Automation</span>
+                            </div>
+                        </div>
+
+                        <!-- Block 4: Long-Term Horizon -->
+                        <div class="p-6 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas">
+                            <span class="text-xs font-mono uppercase text-studio-muted">04 / The Long Game</span>
+                            <h3 class="text-xl font-bold tracking-tight mt-2 mb-3">Research & Cryptography</h3>
+                            <p class="text-xs text-studio-muted leading-relaxed mb-4">
+                                Focused on the intersection of AI Agent Security (AgentGuard) and novel post-quantum hash functions toward an eventual PhD in cryptography.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">AgentGuard</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">Hashing</span>
+                                <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800">AI Guardrails</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 5: LIVE TERMINAL METRICS -->
+            <section class="px-6 sm:px-12 lg:px-20 py-16 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-black text-white">
+                <div class="flex items-center justify-between pb-4 border-b border-neutral-800">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-4 font-mono text-xs text-neutral-400">mitnick@joy-university-soci:~$ systemctl status milan.service</span>
+                    </div>
+                    <span class="text-xs font-mono text-emerald-400">ACTIVE (RUNNING)</span>
+                </div>
+                <div class="font-mono text-xs sm:text-sm mt-6 space-y-2 text-neutral-300">
+                    <p><span class="text-emerald-400">● milan.service</span> - Milan Sherin Core Trajectory Daemon</p>
+                    <p class="text-neutral-500">     Loaded: loaded (/etc/systemd/system/milan.service; enabled; vendor preset: enabled)</p>
+                    <p class="text-neutral-500">     Active: <span class="text-emerald-400 font-bold">active (running)</span> since Sun 2026-11-08 04:00:00 IST</p>
+                    <p>     Tracks: [B.Tech CSE AI (SOCI-NIAT)] [Bug-Bounty API Target Mode] [ISL Vision Model]</p>
+                    <p>     Target: Cloud Security Architect / AI Systems Guardrail Researcher (AgentGuard)</p>
+                    <p class="text-yellow-400/90">> Waking schedule initialized: 04:00 - 08:00 AM daily deep-work code session active.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 6: FOOTER / STUDIO METADATA (Matching Video 00:09) -->
+            <footer class="px-6 sm:px-12 lg:px-20 py-16 bg-white dark:bg-studio-darkCanvas text-studio-text dark:text-studio-darkText">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 text-xs font-mono leading-relaxed">
+                    
+                    <!-- Col 1: Studio Info -->
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Milan Sherin</p>
+                        <p class="text-studio-muted">
+                            Undergraduate Engineer<br>
+                            B.Tech Computer Science (AI)<br>
+                            Joy University through NIAT<br>
+                            Alphonsa Hostel #303
+                        </p>
+                    </div>
+
+                    <!-- Col 2: Academic Benchmarks -->
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Credentials</p>
+                        <ul class="space-y-1 text-studio-muted">
+                            <li>SSLC Exam: <span class="text-black dark:text-white font-semibold">99%</span></li>
+                            <li>Class 12 CS: <span class="text-black dark:text-white font-semibold">94.5%</span></li>
+                            <li>Class 11 CS: <span class="text-black dark:text-white font-semibold">80/80</span></li>
+                            <li>Class 12 Math: <span class="text-black dark:text-white font-semibold">183/200</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Col 3: Coordinates -->
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Network Coordinates</p>
+                        <ul class="space-y-1 text-studio-muted">
+                            <li><a href="https://github.com/Milan-6" target="_blank" class="hover:text-black dark:hover:text-white transition-colors underline">GitHub: @Milan-6</a></li>
+                            <li><a href="https://www.codewars.com" target="_blank" class="hover:text-black dark:hover:text-white transition-colors">Codewars: 6 Kyu</a></li>
+                            <li>Location: Kanyakumari, TN</li>
+                            <li>Roots: Idukki, Kerala</li>
+                        </ul>
+                    </div>
+
+                    <!-- Col 4: Archive Link -->
+                    <div class="md:text-right flex flex-col justify-between">
+                        <div>
+                            <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Archive of Works</p>
+                            <a href="#projects" class="text-studio-muted hover:text-black dark:hover:text-white underline block">6 Active Repositories</a>
+                        </div>
+                        <p class="text-[11px] text-neutral-400 mt-6 md:mt-0">Inspired by Atlason Studio</p>
+                    </div>
+
+                </div>
+            </footer>
+
+        </main>
+        
+        <!-- Bottom Bar Indicator outside canvas -->
+        <div class="mt-4 flex items-center justify-between text-[11px] font-mono text-studio-muted px-2">
+            <span>MILAN SHERIN · VERSION 1.0.0</span>
+            <span>SYSTEM ENCODING: UTF-8</span>
+        </div>
+    </div>
+
+    <!-- MODAL / CASE STUDY DETAIL DRAWER (Dynamic detail view when clicking project cards) -->
+    <div id="caseStudyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8">
+        <div class="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-studio-darkCanvas border border-studio-lightBorder dark:border-studio-darkBorder shadow-2xl overflow-y-auto p-6 sm:p-10 rounded-sm">
+            <button onclick="closeCaseStudy()" class="absolute top-6 right-6 text-2xl font-light hover:opacity-60 transition-opacity">✕</button>
+            <div id="caseStudyContent">
+                <!-- Content injected dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR KINETIC ROTATION, MODAL, THEME TOGGLE, & INTERACTIONS -->
+    <script>
+        // 1. Kinetic Typographic Word Cycler (matching the left-side text flow from the video)
+        const kineticData = [
+            { r1: "Systems", r2: "AI Security", r3: "Architecture" },
+            { r1: "Low-Level", r2: "Computer Vision", r3: "Pipelines" },
+            { r1: "Linux Kernel", r2: "AgentGuard", r3: "Cryptography" },
+            { r1: "Autonomous", r2: "Vulnerability Recon", r3: "Research" }
+        ];
+
+        let currentIndex = 0;
+        const row1 = document.getElementById("kineticRow1");
+        const row2 = document.getElementById("kineticRow2");
+        const row3 = document.getElementById("kineticRow3");
+
+        function cycleKineticHeader() {
+            currentIndex = (currentIndex + 1) % kineticData.length;
+            const current = kineticData[currentIndex];
+
+            // Animate transition
+            animateSwap(row1, current.r1);
+            animateSwap(row2, current.r2);
+            animateSwap(row3, current.r3);
+        }
+
+        function animateSwap(container, newText) {
+            const currentSpan = container.querySelector('.kinetic-word');
+            if (currentSpan) {
+                currentSpan.classList.remove('kinetic-active');
+                currentSpan.classList.add('kinetic-exit');
+                setTimeout(() => {
+                    container.innerHTML = `<span class="kinetic-word kinetic-enter block">${newText}</span>`;
+                    const nextSpan = container.querySelector('.kinetic-word');
+                    requestAnimationFrame(() => {
+                        nextSpan.classList.remove('kinetic-enter');
+                        nextSpan.classList.add('kinetic-active');
+                    });
+                }, 300);
+            }
+        }
+
+        setInterval(cycleKineticHeader, 3200);
+
+        // 2. Inversion / Dark Mode Toggle (seen in video at 00:14)
+        const themeBtn = document.getElementById("themeToggleBtn");
+        const themeText = document.getElementById("themeText");
+
+        themeBtn.addEventListener("click", () => {
+            document.documentElement.classList.toggle("dark");
+            const isDark = document.documentElement.classList.contains("dark");
+            themeText.textContent = isDark ? "Light" : "Invert";
+        });
+
+        // 3. Fullscreen Overlay Drawer Toggle (Atlason Menu overlay with 'X')
+        const overlay = document.getElementById("studioMenuOverlay");
+        const menuToggle = document.getElementById("menuOverlayToggle");
+        const menuClose = document.getElementById("menuCloseBtn");
+        const overlayLinks = document.querySelectorAll(".overlay-nav-link");
+
+        function toggleOverlay(open) {
+            if (open) {
+                overlay.classList.remove("opacity-0", "pointer-events-none");
+                overlay.classList.add("opacity-100");
+                document.body.style.overflow = "hidden";
+            } else {
+                overlay.classList.add("opacity-0", "pointer-events-none");
+                overlay.classList.remove("opacity-100");
+                document.body.style.overflow = "";
+            }
+        }
+
+        menuToggle.addEventListener("click", () => toggleOverlay(true));
+        menuClose.addEventListener("click", () => toggleOverlay(false));
+        overlayLinks.forEach(link => link.addEventListener("click", () => toggleOverlay(false)));
+
+        // 4. Case Study Details Data & Modal Logic
+        const caseStudies = {
+            verba: {
+                title: "VERBA — Indian Sign Language AI",
+                category: "Computer Vision & Deep Learning Accessibility Platform",
+                tech: "MediaPipe · Bidirectional LSTM/GRU · FastAPI · WebSockets · ONNX Runtime",
+                description: "VERBA is Milan Sherin's flagship computer vision application engineered to bridge the accessibility gap for Indian Sign Language (ISL) communication. It extracts 3D hand and bodily skeletal keypoints at 60 FPS without requiring bulky wearable sensors.",
+                features: [
+                    "Real-time temporal landmark processing pipeline via Google MediaPipe.",
+                    "Sequence classification utilizing bidirectional recurrent models (LSTM/GRU).",
+                    "Sub-40ms end-to-end inference streaming via asynchronous WebSockets on FastAPI.",
+                    "Optimized ONNX Runtime deployment for hardware-accelerated inferencing."
+                ],
+                github: "https://github.com/Milan-6"
+            },
+            log_analyzer: {
+                title: "CLI Log File Analyzer",
+                category: "Infrastructure Tooling & OOP Telemetry Utility",
+                tech: "Python 3 · Regular Expressions · OOP Branch · JSON Parser",
+                description: "A command-line systems utility designed to ingest massive unstructured application and web server logs. Refactored from procedural scripting into an enterprise-grade `Log_Analyzer` object-oriented pattern.",
+                features: [
+                    "High-throughput compiled RegEx engine extracting timestamps, status codes, and IP addresses.",
+                    "Categorization into discrete operational buckets (INFO, WARNING, ERROR, CRITICAL).",
+                    "Aggregates error frequency distributions and surfaces endpoint bottleneck metrics directly to stdout.",
+                    "Exports structured, audit-ready telemetry summaries in formatted JSON."
+                ],
+                github: "https://github.com/Milan-6"
+            },
+            n8n_pipeline: {
+                title: "Multi-Service Automation Engine",
+                category: "Autonomous Workflow Orchestration",
+                tech: "n8n Community Edition · Google Gemini API · FetchRSS · LinkedIn REST API · Google Sheets",
+                description: "A self-hosted asynchronous event pipeline eliminating repetitive data collection, summarization, and content distribution workflows across distributed services.",
+                features: [
+                    "Integrates real-time weather metrics and news feeds via webhook triggers.",
+                    "Contextual drafting and semantic synthesis driven by Google Gemini LLM nodes.",
+                    "Automated distribution pipelines targeting LinkedIn REST APIs.",
+                    "Maintains comprehensive operational execution logs and analytics inside Google Sheets."
+                ],
+                github: "https://github.com/Milan-6"
+            },
+            password_vault: {
+                title: "Cryptographic Password Vault CLI",
+                category: "Security & Applied Cryptography",
+                tech: "Python · Cryptography (Fernet) · PBKDF2 · SHA-256 Key Derivation",
+                description: "A zero-plaintext terminal credential storage engine architected around strict Object-Oriented principles, separating Vault, Entry, and CryptoHandler concerns.",
+                features: [
+                    "Symmetric authenticated encryption leveraging 128-bit AES in CBC mode with PKCS7 padding.",
+                    "HMAC authentication using SHA-256 to prevent ciphertext tampering.",
+                    "Zero-plaintext persistence on disk; credentials exist decrypted strictly in volatile memory.",
+                    "Master password salted key derivation via PBKDF2."
+                ],
+                github: "https://github.com/Milan-6"
+            },
+            cve_tracker: {
+                title: "Network Asset & CVE Tracker",
+                category: "Infrastructure Auditing & Vulnerability Management",
+                tech: "Python · CVE API · CVSS Scoring Engine · Socket Recon",
+                description: "An infrastructure security utility that correlates active network components with official CVE databases to detect exposed vulnerability vectors before exploitation.",
+                features: [
+                    "Port discovery and service fingerprinting for local and remote subnet assets.",
+                    "Real-time correlation against updated National Vulnerability Database (NVD) endpoints.",
+                    "Automated CVSS severity calculation (Low, Medium, High, Critical).",
+                    "Generates prioritized patch recommendation summaries for systems administrators."
+                ],
+                github: "https://github.com/Milan-6"
+            },
+            weather_cli: {
+                title: "Weather & Air Quality CLI",
+                category: "API Normalization & CLI Engineering",
+                tech: "Python · Argparse · Multi-API Integration · Disk Caching",
+                description: "A fault-tolerant command-line application that bridges conflicting JSON schemas across two distinct weather and environmental pollution APIs.",
+                features: [
+                    "Payload schema reconciliation and data normalization into clean terminal output tables.",
+                    "Local caching mechanism to minimize redundant upstream API calls.",
+                    "Graceful fallback behavior under partial upstream provider degradation.",
+                    "Secure environment variable token management."
+                ],
+                github: "https://github.com/Milan-6"
+            }
+        };
+
+        const modal = document.getElementById("caseStudyModal");
+        const modalContent = document.getElementById("caseStudyContent");
+
+        function openCaseStudy(key) {
+            const study = caseStudies[key];
+            if (!study) return;
+
+            modalContent.innerHTML = `
+                <div class="border-b border-studio-lightBorder dark:border-studio-darkBorder pb-4 mb-6">
+                    <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">${study.category}</p>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1">${study.title}</h2>
+                    <p class="text-xs font-mono text-neutral-500 mt-2">${study.tech}</p>
+                </div>
+                <div class="space-y-4 text-sm leading-relaxed text-studio-muted">
+                    <p class="text-black dark:text-white font-medium">${study.description}</p>
+                    <div class="my-6">
+                        <h4 class="text-xs font-mono uppercase tracking-widest text-black dark:text-white mb-3">Architectural Highlights:</h4>
+                        <ul class="space-y-2">
+                            ${study.features.map(f => `<li class="flex items-start space-x-2"><span>•</span><span>${f}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex justify-between items-center">
+                    <a href="${study.github}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black font-semibold text-xs uppercase tracking-widest hover:opacity-85 transition-opacity inline-flex items-center space-x-2">
+                        <span>Inspect Source on GitHub</span>
+                        <span>↗</span>
+                    </a>
+                    <button onclick="closeCaseStudy()" class="text-xs font-mono uppercase text-studio-muted hover:text-black dark:hover:text-white">Close Window</button>
+                </div>
+            `;
+
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            modal.classList.add("opacity-100");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeCaseStudy() {
+            modal.classList.add("opacity-0", "pointer-events-none");
+            modal.classList.remove("opacity-100");
+            document.body.style.overflow = "";
+        }
+
+        // Close modal when clicking backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeCaseStudy();
+        });
+    </script>
+</body>
+</html>

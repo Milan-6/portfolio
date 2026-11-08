@@ -1,0 +1,207 @@
+/* ===================================================================
+ * Milan Sherin Portfolio - Main Stylesheet
+ * =================================================================== */
+
+:root {
+  --line-half-height: 0.55em;
+}
+
+/* Base */
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.5);
+}
+
+/* Grid background */
+.bg-studio-grid {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+.dark .bg-studio-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Canvas frame */
+.canvas-frame {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Editorial image filter */
+.editorial-img {
+  filter: grayscale(100%) contrast(108%);
+  transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease;
+}
+.editorial-img:hover {
+  filter: grayscale(20%) contrast(102%);
+  transform: scale(1.015);
+}
+
+/* Certificate cards */
+.cert-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.2s ease;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3-D MAIN HEADING VERTICAL ROLL (Two-Line Cuboid Roll)
+   ══════════════════════════════════════════════════════════*/
+
+.s-intro__content-title {
+  position: relative;
+  line-height: 1.05;
+}
+
+/* Line wrapper */
+.heading-3d-line {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+/* 3D Stage: 900px perspective, overflow visible to allow 3D turning */
+.heading-3d-stage {
+  perspective: 900px;
+  perspective-origin: 50% 50%;
+  overflow: visible;
+  transform-style: preserve-3d;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* Cuboid: rotates vertically around horizontal X-axis */
+.heading-3d-cuboid {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: translate3d(0, 0, calc(-1 * var(--line-half-height, 30px))) rotateX(0deg);
+}
+
+.heading-3d-cuboid.is-at-rest {
+  will-change: auto;
+}
+
+/* Faces of the cuboid */
+.heading-3d-face {
+  display: block;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: inherit;
+}
+
+/* Front face: at rest sits at Z=0 (normal static text position) */
+.heading-3d-front {
+  position: relative;
+  transform: rotateX(0deg) translate3d(0, 0, var(--line-half-height, 30px));
+}
+
+/* Back face: opposite side rotated 180deg */
+.heading-3d-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateX(180deg) translate3d(0, 0, var(--line-half-height, 30px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heading-3d-cuboid,
+  .heading-3d-face {
+    will-change: auto;
+    transform: none !important;
+    transition: none !important;
+  }
+  .heading-3d-back {
+    display: none !important;
+  }
+}
+
+/* GLightbox overrides for smooth high-contrast presentation */
+.glightbox-clean .gslide-description {
+  background: #09090b !important;
+  color: #f4f4f5 !important;
+}
+.glightbox-clean .gdesc-inner h4,
+.glightbox-clean .gdesc-inner .gslide-title {
+  color: #ffffff !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+}
+.glightbox-clean .gdesc-inner p {
+  color: #a1a1aa !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+}
+.glightbox-clean .gdesc-inner a {
+  color: #38bdf8 !important;
+  text-decoration: underline !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CASE STUDY PROJECT MODAL STYLES (Accessible & Themed)
+   ══════════════════════════════════════════════════════════*/
+
+.project-modal-backdrop {
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.2s ease;
+}
+
+.project-modal-backdrop.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-modal-panel {
+  transform: translate3d(0, 16px, 0);
+  opacity: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.project-modal-backdrop.is-active .project-modal-panel {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+/* Modal internal scrollbar */
+#projectModalScroll::-webkit-scrollbar {
+  width: 6px;
+}
+#projectModalScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+#projectModalScroll::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.25);
+  border-radius: 9999px;
+}
+#projectModalScroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.5);
+}

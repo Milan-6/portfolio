@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milan Sherin — Systems &amp; AI Security Engineer</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Third-party Vendor Styles (GLightbox, Prism, Swiper) -->
+    <link rel="stylesheet" href="css/vendor.css">
+    <!-- Main Custom Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        studio: {
+                            bg: '#f5f5f4', canvas: '#ffffff', text: '#0f0f10',
+                            muted: '#71717a', lightBorder: '#e4e4e7',
+                            darkBg: '#09090b', darkCanvas: '#050505',
+                            darkText: '#f4f4f5', darkBorder: '#27272a'
+                        }
+                    },
+                    letterSpacing: { tighter: '-0.04em', tightest: '-0.06em' }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-studio-bg text-studio-text dark:bg-studio-darkBg dark:text-studio-darkText min-h-screen transition-colors duration-500 overflow-x-hidden selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
+
+    <!-- Ambient Grid Background -->
+    <div class="fixed inset-0 bg-studio-grid pointer-events-none opacity-80 z-0"></div>
+
+    <!-- Main Canvas Viewport Container -->
+    <div id="viewportContainer" class="relative z-10 w-full min-h-screen px-3 py-3 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10 flex flex-col justify-between">
+        
+        <!-- Studio Canvas Frame -->
+        <main id="studioFrame" class="canvas-frame relative w-full bg-white dark:bg-studio-darkCanvas border border-studio-lightBorder dark:border-studio-darkBorder shadow-2xl rounded-sm overflow-hidden flex flex-col">
+
+            <!-- ════════ HEADER ════════════════════════════════════════ -->
+            <header class="w-full border-b border-studio-lightBorder dark:border-studio-darkBorder px-6 sm:px-10 py-5 flex items-center justify-between bg-white/95 dark:bg-studio-darkCanvas/95 backdrop-blur z-30 sticky top-0">
+                <div class="flex items-center space-x-6">
+                    <a href="#intro" class="group flex items-center space-x-3">
+                        <span class="font-extrabold text-xl sm:text-2xl tracking-tighter uppercase font-sans text-black dark:text-white group-hover:opacity-70 transition-opacity">Milan Sherin</span>
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </a>
+                    <span class="hidden md:inline-block text-xs font-mono tracking-widest text-studio-muted uppercase">Systems &middot; AI Security</span>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-5">
+                    <nav class="hidden lg:flex items-center space-x-5 text-xs font-mono uppercase tracking-widest text-studio-muted">
+                        <a href="#intro"          class="hover:text-black dark:hover:text-white transition-colors">Intro</a>
+                        <a href="#works"          class="hover:text-black dark:hover:text-white transition-colors">Works</a>
+                        <a href="#certifications" class="hover:text-black dark:hover:text-white transition-colors">Certs</a>
+                        <a href="#academics"      class="hover:text-black dark:hover:text-white transition-colors">Academics</a>
+                        <a href="#skills"         class="hover:text-black dark:hover:text-white transition-colors">Skills</a>
+                        <a href="#about"          class="hover:text-black dark:hover:text-white transition-colors">Workstation</a>
+                        <a href="#numbers"        class="hover:text-black dark:hover:text-white transition-colors">Metrics</a>
+                    </nav>
+                    <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer"
+                       class="hidden sm:flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-studio-muted hover:text-black dark:hover:text-white transition-colors">
+                        <span>GitHub</span>
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+                    <button id="themeToggleBtn" aria-label="Toggle dark mode"
+                            class="p-2 border border-studio-lightBorder dark:border-studio-darkBorder rounded text-xs font-mono uppercase tracking-wider hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors flex items-center space-x-1.5">
+                        <span id="themeIcon" class="w-3 h-3 rounded-full border border-black dark:border-white bg-black dark:bg-white inline-block"></span>
+                        <span id="themeText" class="hidden sm:inline">Invert</span>
+                    </button>
+                    <button id="menuOverlayToggle" aria-label="Open menu overlay"
+                            class="w-10 h-10 flex items-center justify-center border border-studio-lightBorder dark:border-studio-darkBorder rounded hover:border-black dark:hover:border-white transition-colors group">
+                        <span class="text-xl font-light leading-none group-hover:scale-110 transition-transform">&#9776;</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ════════ OVERLAY DRAWER ════════════════════════════════ -->
+            <div id="studioMenuOverlay" class="fixed inset-0 bg-white/98 dark:bg-studio-darkCanvas/98 backdrop-blur-xl z-50 flex flex-col justify-between p-8 sm:p-14 lg:p-20 opacity-0 pointer-events-none transition-opacity duration-300">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-2">Milan Sherin &middot; Engineering Studio</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest">Index &amp; Coordinates</h2>
+                    </div>
+                    <button id="menuCloseBtn" class="text-3xl sm:text-4xl font-light hover:opacity-50 transition-opacity p-2">&#x2715;</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 my-auto py-10">
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Core Focus</h3>
+                        <ul class="space-y-3 text-lg sm:text-xl font-medium tracking-tight">
+                            <li><a href="#works" class="overlay-nav-link hover:underline">01 / AI Systems &amp; Computer Vision</a></li>
+                            <li><a href="#skills" class="overlay-nav-link hover:underline">02 / Linux Internals &amp; Home Lab</a></li>
+                            <li><a href="#works" class="overlay-nav-link hover:underline">03 / Autonomous Event Pipelines</a></li>
+                            <li><a href="#works" class="overlay-nav-link hover:underline">04 / Cryptographic Primitives</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Workstation &amp; Origin</h3>
+                        <p class="text-sm leading-relaxed text-studio-muted">
+                            Operating from an isolated Linux environment under identifier "MITNICK".<br>
+                            Focus: Low-level systems, protocol boundaries, and machine learning runtimes.<br>
+                            Origins: Idukki, Kerala, India.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-studio-muted border-b border-studio-lightBorder dark:border-studio-darkBorder pb-3 mb-4">Direct Communication</h3>
+                        <p class="text-xs font-mono text-studio-muted mb-2">INQUIRIES &amp; RESEARCH</p>
+                        <a href="mailto:milansherin@gmail.com" class="text-base font-semibold block hover:underline transition-colors">milansherin@gmail.com</a>
+                        <div class="mt-4 flex flex-col space-y-2 text-xs font-mono">
+                            <a href="https://www.linkedin.com/in/milan-sherin-aa3880447/" target="_blank" rel="noopener noreferrer" class="hover:underline text-studio-muted hover:text-black dark:hover:text-white">LinkedIn &middot; Milan Sherin &rarr;</a>
+                            <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer" class="hover:underline text-studio-muted hover:text-black dark:hover:text-white">GitHub &middot; @Milan-6 &rarr;</a>
+                            <a href="https://www.codewars.com/users/Milan%20Sherin" target="_blank" rel="noopener noreferrer" class="hover:underline text-studio-muted hover:text-black dark:hover:text-white">Codewars &middot; 6 Kyu &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center text-xs font-mono text-studio-muted border-t border-studio-lightBorder dark:border-studio-darkBorder pt-4">
+                    <span>&copy; 2026 MILAN SHERIN</span><span>SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+
+            <!-- ════════ SECTION: #intro (Hero) ═════════════════════════ -->
+            <section id="intro" class="relative px-6 sm:px-12 lg:px-20 pt-14 pb-20 sm:pt-20 sm:pb-28 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+
+                    <!-- LEFT: Headline, Bio & Quote -->
+                    <div class="lg:col-span-7 flex flex-col justify-center">
+                        <!-- Pretitle pill -->
+                        <div class="text-xs sm:text-sm font-mono uppercase tracking-widest text-studio-muted mb-4 flex items-center space-x-2">
+                            <span class="inline-block w-4 h-[1px] bg-studio-muted"></span>
+                            <span>Systems &middot; AI Security &middot; Infrastructure</span>
+                        </div>
+
+                        <!-- Primary headline inside #intro (.s-intro__content-title) with 3D vertical roll cuboids -->
+                        <h1 class="s-intro__content-title text-[2.75rem] sm:text-[4.2rem] md:text-[5.2rem] lg:text-[5.8rem] font-black tracking-tightest leading-[1.05] select-none" aria-label="Milan Sherin &mdash; AI Systems">
+                            <!-- Line 1: Milan Sherin -->
+                            <div class="heading-3d-line heading-3d-line-1">
+                                <div class="heading-3d-stage">
+                                    <div class="heading-3d-cuboid text-neutral-400 dark:text-neutral-600">
+                                        <div class="heading-3d-face heading-3d-front">Milan Sherin</div>
+                                        <div class="heading-3d-face heading-3d-back" aria-hidden="true">Milan Sherin</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Line 2: AI Systems -->
+                            <div class="heading-3d-line heading-3d-line-2">
+                                <div class="heading-3d-stage">
+                                    <div class="heading-3d-cuboid text-black dark:text-white font-extrabold">
+                                        <div class="heading-3d-face heading-3d-front">AI Systems</div>
+                                        <div class="heading-3d-face heading-3d-back" aria-hidden="true">AI Systems</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h1>
+
+                        <!-- Exact Bio at the Top -->
+                        <p class="mt-8 text-sm sm:text-base font-normal text-studio-muted leading-relaxed max-w-xl">
+                            I'm Milan Sherin. I'm drawn to the layers beneath the surface: the quiet moment a machine executes an instruction, the way two systems agree to trust each other, and the hairline crack where that trust gives way. Every boundary is only as strong as the assumptions it rests on, so I spend my time questioning them. I'm still early on this path, and I walk it one deliberate step at a time. Someday I hope to help protect the intelligent systems the world is beginning to lean on.
+                        </p>
+
+                        <!-- Styled Pull-Quote under Bio -->
+                        <blockquote class="mt-6 border-l-2 border-neutral-400 dark:border-neutral-600 pl-4 py-1 max-w-xl">
+                            <p class="text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-300 leading-relaxed italic">
+                                "I don't learn programming just to write scripts. I learn to understand how systems speak, how boundaries fail, and how to build what endures."
+                            </p>
+                        </blockquote>
+
+                        <!-- CTA row -->
+                        <div class="mt-8 sm:mt-10 flex flex-wrap gap-4 items-center">
+                            <a href="#works" class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-semibold text-xs uppercase tracking-widest hover:opacity-85 transition-opacity inline-flex items-center space-x-2">
+                                <span>Explore Case Studies</span><span>&#8595;</span>
+                            </a>
+                            <a href="#skills" class="px-6 py-3 border border-studio-lightBorder dark:border-studio-darkBorder text-xs uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors">
+                                Technical Skills &amp; Lab
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Hero Media Container with Profile Photo (me_2.jpeg) -->
+                    <div class="lg:col-span-5 flex flex-col justify-center lg:pl-6 border-l-0 lg:border-l border-studio-lightBorder dark:border-studio-darkBorder">
+                        <div class="s-intro__content-media relative w-full max-w-md mx-auto lg:max-w-none">
+                            <div class="relative overflow-hidden rounded-sm border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 dark:ring-white/10 group">
+                                <div class="aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden">
+                                    <img src="me_2.jpeg" 
+                                         alt="Milan Sherin" 
+                                         class="w-full h-full object-cover object-[center_18%] transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ════════ PHILOSOPHY STATEMENT ═════════════════════════ -->
+            <section class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-950/20">
+                <div class="max-w-4xl">
+                    <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-4">Philosophy &amp; Focus</p>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-snug">
+                        "At the center of our work is curiosity, a relentless demand for system clarity, and the conviction that everything we imagine can be engineered with precision."
+                    </h2>
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #works (Projects) ════════════════════ -->
+            <section id="works" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">Portfolio / Repositories</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest mt-1">Case Studies</h2>
+                    </div>
+                    <div class="mt-4 sm:mt-0 text-xs font-mono text-studio-muted">
+                        GITHUB: <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer" class="text-black dark:text-white underline hover:no-underline">@Milan-6</a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Project 1: VERBA -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="verba">
+                        <a href="#project-verba"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="verba">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="VERBA ISL Recognition" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">Vision AI</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="verba">VERBA — Sign Language AI</span>
+                            <a href="https://github.com/Milan-6/PROJECT----Verba" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">MediaPipe &middot; LSTM/GRU &middot; FastAPI &middot; ONNX</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Real-time Indian Sign Language recognition engine streaming landmark embeddings over bi-directional WebSockets for low-latency translation.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="verba">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">Live Pipeline</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: CLI Log File Analyzer -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="log-analyzer">
+                        <a href="#project-log-analyzer"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="log-analyzer">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="CLI Log Analyzer" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">Systems Tool</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="log-analyzer">CLI Log File Analyzer</span>
+                            <a href="https://github.com/Milan-6/LOG-FILE-ANALYZER" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Python &middot; OOP Log_Analyzer &middot; RegEx &middot; Telemetry</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Server log telemetry tool using regular expressions and modular OOP <code>Log_Analyzer</code> for structured operational summaries.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="log-analyzer">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">Audit-Ready</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Automation Pipeline -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="automation-pipeline">
+                        <a href="#project-automation-pipeline"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="automation-pipeline">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Automation Pipeline" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">Automation</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="automation-pipeline">Automation Pipeline</span>
+                            <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">n8n Community &middot; Google Gemini &middot; FetchRSS &middot; LinkedIn API</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Multi-service engine on n8n Community Edition using Google Gemini, FetchRSS, and LinkedIn API for automated content syndication.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="automation-pipeline">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">n8n Engine</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 4: Password Vault CLI -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="password-vault">
+                        <a href="#project-password-vault"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="password-vault">
+                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" alt="Password Vault CLI" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">Cryptography</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="password-vault">Password Vault CLI</span>
+                            <a href="https://github.com/Milan-6/PROJECT-4------PASSWORD-VALUT-CLI-" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Fernet Authenticated Cryptography &middot; PBKDF2 &middot; Python OOP</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Encrypted master vault utilizing Fernet authenticated cryptography and salted PBKDF2 key derivation for zero-plaintext storage.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="password-vault">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">Zero-Plaintext</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 5: CVE & Asset Tracker -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="network-asset-tracker">
+                        <a href="#project-network-asset-tracker"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="network-asset-tracker">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="CVE Asset Tracker" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">SecOps</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="network-asset-tracker">CVE &amp; Asset Tracker</span>
+                            <a href="https://github.com/Milan-6/PROJECT-3------NETWORK-ASSET-TRACKER" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Python &middot; CVE API &middot; CVSS Scoring &middot; Socket Recon</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Network component scanner mapping endpoints to open CVE and CVSS records for automated severity prioritization.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="network-asset-tracker">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">CVSS Auditing</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 6: Weather & AQI CLI -->
+                    <article class="group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-4 rounded-sm shadow-sm hover:border-black dark:hover:border-white transition-all cursor-pointer" data-project-id="weather-cli">
+                        <a href="#project-weather-cli"
+                           class="project-card-trigger block aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-studio-lightBorder dark:border-studio-darkBorder mb-4 relative cursor-pointer"
+                           data-project-id="weather-cli">
+                            <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=800&q=80" alt="Weather AQI CLI" class="editorial-img w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 tracking-widest">API Tool</span>
+                        </a>
+                        <h3 class="text-xl font-bold tracking-tight flex items-center justify-between">
+                            <span class="project-card-trigger hover:underline" data-project-id="weather-cli">Weather &amp; AQI CLI</span>
+                            <a href="https://github.com/Milan-6/PROJECT-1---WEATHER-CLI-APP" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-studio-muted hover:text-black dark:hover:text-white" title="View repository" onclick="event.stopPropagation()">&#8599;</a>
+                        </h3>
+                        <p class="text-xs text-studio-muted font-mono mt-1">Multi-API &middot; Schema Normalization &middot; Local Disk Caching</p>
+                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">Resilient multi-API normalization utility with local disk caching for unified weather and environmental metrics delivery.</p>
+                        <div class="mt-4 pt-3 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono">
+                            <span class="text-black dark:text-white underline hover:no-underline project-card-trigger" data-project-id="weather-cli">Inspect Full Case Study &rarr;</span>
+                            <span class="text-studio-muted">Disk Caching</span>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #certifications ══════════════════════ -->
+            <section id="certifications" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/60 dark:bg-neutral-950/20">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">Verified Credentials</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest mt-1">Certifications &amp; Honors</h2>
+                    </div>
+                    <div class="mt-4 sm:mt-0 text-xs font-mono text-studio-muted">05 VERIFIED CREDENTIALS</div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Cert 1: TCM Security Linux 100 -->
+                    <a href="LinuxCertificate.pdf" target="_blank" rel="noopener noreferrer"
+                       class="cert-card group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-6 hover:border-black dark:hover:border-white transition-all rounded-sm shadow-sm">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="inline-block px-2.5 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-widest">PDF</span>
+                            <span class="text-xs font-mono text-studio-muted">ID: djUzOTEwNi0zMjM</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">TCM Security</p>
+                            <h3 class="text-lg font-bold tracking-tight">Linux 100</h3>
+                            <p class="text-xs text-studio-muted mt-2">Practical Linux foundations: file system hierarchies, user privilege management, networking tools, process auditing, and shell scripting.</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono text-studio-muted group-hover:text-black dark:group-hover:text-white transition-colors">
+                            <span>Open Certificate</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <!-- Cert 2: TCM Security Programming 100 -->
+                    <a href="ProgammingCertificate.pdf" target="_blank" rel="noopener noreferrer"
+                       class="cert-card group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-6 hover:border-black dark:hover:border-white transition-all rounded-sm shadow-sm">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="inline-block px-2.5 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-widest">PDF</span>
+                            <span class="text-xs font-mono text-studio-muted">ID: djUzOTEwNi0zMjY</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">TCM Security</p>
+                            <h3 class="text-lg font-bold tracking-tight">Programming 100</h3>
+                            <p class="text-xs text-studio-muted mt-2">Security-oriented programming fundamentals covering Python scripting, algorithmic automation patterns, and core security development principles.</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono text-studio-muted group-hover:text-black dark:group-hover:text-white transition-colors">
+                            <span>Open Certificate</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <!-- Cert 3: GenLab n8n AI Agent Bootcamp -->
+                    <a href="Certificate - Milan Sherin.pdf" target="_blank" rel="noopener noreferrer"
+                       class="cert-card group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-6 hover:border-black dark:hover:border-white transition-all rounded-sm shadow-sm">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="inline-block px-2.5 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-widest">PDF</span>
+                            <span class="text-xs font-mono text-studio-muted">GenLab Verified</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">GenLab</p>
+                            <h3 class="text-lg font-bold tracking-tight">n8n AI Agent Bootcamp</h3>
+                            <p class="text-xs text-studio-muted mt-2">Intensive bootcamp covering autonomous n8n workflow pipelines, LLM agent orchestration, webhook triggers, and multi-service deployment.</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono text-studio-muted group-hover:text-black dark:group-hover:text-white transition-colors">
+                            <span>Open Certificate</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <!-- Cert 4: Technova 2024 — Model Sastraprathibha Award (GLightbox) -->
+                    <a href="cert1.jpeg" class="glightbox cert-card group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-6 hover:border-black dark:hover:border-white transition-all rounded-sm shadow-sm"
+                       data-glightbox="title: Technova 2024 — Model Sastraprathibha Award; description: Recognized for outstanding scientific aptitude, problem-solving, and technical innovation at the Technova 2024 STEM festival.">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="inline-block px-2.5 py-1 bg-emerald-700 text-white text-[10px] font-mono uppercase tracking-widest">Award &middot; GLightbox</span>
+                            <span class="text-xs font-mono text-studio-muted">Technova 2024</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">Technova 2024</p>
+                            <h3 class="text-lg font-bold tracking-tight">Model Sastraprathibha Award</h3>
+                            <p class="text-xs text-studio-muted mt-2">Recognized for outstanding scientific aptitude and technical innovation at the Technova 2024 STEM festival.</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono text-studio-muted group-hover:text-black dark:group-hover:text-white transition-colors">
+                            <span>Open in GLightbox</span>
+                            <span>&#10562;</span>
+                        </div>
+                    </a>
+
+                    <!-- Cert 5: Technova 2024 — Science Experience Camp (GLightbox) -->
+                    <a href="cert2.jpeg" class="glightbox cert-card group flex flex-col border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas p-6 hover:border-black dark:hover:border-white transition-all rounded-sm shadow-sm"
+                       data-glightbox="title: Technova 2024 — Science Experience Camp; description: Certificate awarded for active participation in the Science Experience Camp at Technova 2024 — an immersive STEM festival.">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="inline-block px-2.5 py-1 bg-blue-700 text-white text-[10px] font-mono uppercase tracking-widest">Participation &middot; GLightbox</span>
+                            <span class="text-xs font-mono text-studio-muted">Technova 2024</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">Technova 2024</p>
+                            <h3 class="text-lg font-bold tracking-tight">Science Experience Camp</h3>
+                            <p class="text-xs text-studio-muted mt-2">Participation certificate for the Science Experience Camp held at Technova 2024 — an immersive hands-on STEM festival event.</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-studio-lightBorder dark:border-studio-darkBorder flex items-center justify-between text-xs font-mono text-studio-muted group-hover:text-black dark:group-hover:text-white transition-colors">
+                            <span>Open in GLightbox</span>
+                            <span>&#10562;</span>
+                        </div>
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #academics (Single Place on the Site) ════════ -->
+            <section id="academics" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas">
+                <div class="max-w-4xl">
+                    <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-2">Academic Record</p>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tightest mb-6">Education &amp; Foundations</h2>
+                    
+                    <div class="border border-studio-lightBorder dark:border-studio-darkBorder rounded-sm p-6 sm:p-8 space-y-6 bg-neutral-50/50 dark:bg-neutral-900/30 shadow-sm">
+                        <div class="border-b border-studio-lightBorder dark:border-studio-darkBorder pb-5">
+                            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                                <h3 class="text-lg font-bold text-black dark:text-white">Joy University — School of Computational Intelligence (SOCI-NIAT)</h3>
+                                <span class="text-xs font-mono text-studio-muted">Undergraduate Degree Program</span>
+                            </div>
+                            <p class="text-xs font-mono text-studio-muted mt-2">
+                                B.Tech in Computer Science &amp; Engineering (Artificial Intelligence) &middot; Section G &middot; Roll No. 2026BTAI130
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                            <div class="p-4 bg-white dark:bg-studio-darkCanvas border border-studio-lightBorder dark:border-studio-darkBorder rounded-sm">
+                                <span class="text-studio-muted block uppercase text-[10px]">Higher Secondary Examination</span>
+                                <span class="text-sm font-bold text-black dark:text-white mt-1 block">Class 12 CS Board: 94.5% Overall</span>
+                                <span class="text-neutral-500 mt-1 block">Computer Science: 95% &middot; Physics: 190/200 &middot; Mathematics: 183/200</span>
+                            </div>
+                            <div class="p-4 bg-white dark:bg-studio-darkCanvas border border-studio-lightBorder dark:border-studio-darkBorder rounded-sm">
+                                <span class="text-studio-muted block uppercase text-[10px]">Secondary School Leaving Certificate</span>
+                                <span class="text-sm font-bold text-black dark:text-white mt-1 block">SSLC: 99% Overall</span>
+                                <span class="text-neutral-500 mt-1 block">Kerala State Examination Board</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #skills (Directly Above Workstation) ════════ -->
+            <section id="skills" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">Disciplines &amp; Environments</p>
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tightest mt-1">Technical Skills &amp; Home Lab</h2>
+                    </div>
+                    <div class="mt-4 sm:mt-0 text-xs font-mono text-studio-muted">HANDS-ON ENVIRONMENTS</div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                    <!-- Linux System Architecture -->
+                    <div class="p-8 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas rounded-sm shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono uppercase tracking-widest text-studio-muted">Operating System Core</span>
+                            <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-[10px] font-mono uppercase">Linux Execution</span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight">Linux System Architecture</h3>
+                        <p class="text-sm text-studio-muted leading-relaxed">
+                            Operating within the terminal is an exercise in direct contact with the machine. I work with Linux not as an abstraction, but as a living hierarchy of processes, system calls, network sockets, and permissions. Understanding how kernel boundaries isolate memory and where user privileges terminate is where reliable security begins.
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">POSIX Environment</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Bash &amp; Shell Tooling</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Process &amp; Memory Isolation</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Socket Auditing</span>
+                        </div>
+                    </div>
+
+                    <!-- Ubuntu & Linux Mint Home Lab -->
+                    <div class="p-8 border border-studio-lightBorder dark:border-studio-darkBorder bg-white dark:bg-studio-darkCanvas rounded-sm shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono uppercase tracking-widest text-studio-muted">Controlled Proving Ground</span>
+                            <span class="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-[10px] font-mono uppercase">Ubuntu &middot; Linux Mint</span>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-tight">Ubuntu &amp; Linux Mint Home Lab</h3>
+                        <p class="text-sm text-studio-muted leading-relaxed">
+                            Theory holds only until a packet drops or an unexpected payload causes a segmentation fault. My home lab spans dual local distributions—Ubuntu and Linux Mint—serving as quiet proving grounds. Here, configurations are intentionally stressed, network conduits mapped, and mock services interrogated to witness firsthand how systems behave under tension and where silent failures originate.
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Dual-Distro Testbed</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Network Stress Simulation</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Service Concurrency</span>
+                            <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800/80 rounded-sm">Fault Reconstruction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clean Grouped Skills Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-5 border border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-900/20 rounded-sm">
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-studio-muted">01 / Security &amp; Recon</span>
+                        <h4 class="text-base font-bold tracking-tight mt-1 mb-2">Network &amp; Vulnerability</h4>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-700 dark:text-neutral-300">
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Nmap</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Hydra</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">SSH Protocol</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">CVSS Auditing</span>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-900/20 rounded-sm">
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-studio-muted">02 / Algorithmic Foundations</span>
+                        <h4 class="text-base font-bold tracking-tight mt-1 mb-2">Low-Level &amp; Scripting</h4>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-700 dark:text-neutral-300">
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Python 3</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">C++</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Data Structures</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">RegEx Engines</span>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-900/20 rounded-sm">
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-studio-muted">03 / Applied Cryptography</span>
+                        <h4 class="text-base font-bold tracking-tight mt-1 mb-2">Authenticated Primitives</h4>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-700 dark:text-neutral-300">
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Fernet AES</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">PBKDF2 Derivation</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">HMAC-SHA256</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">Zero-Plaintext</span>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-50/50 dark:bg-neutral-900/20 rounded-sm">
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-studio-muted">04 / Runtimes &amp; Pipelines</span>
+                        <h4 class="text-base font-bold tracking-tight mt-1 mb-2">Model Serving &amp; Workflows</h4>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-700 dark:text-neutral-300">
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">ONNX Runtime</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">FastAPI &middot; WebSockets</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">MediaPipe</span>
+                            <span class="px-2 py-0.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">n8n Orchestration</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #about (Workstation / Profile) ════════ -->
+            <section id="about" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Second Image: Clean Portrait Frame without Academic or System Specs -->
+                    <div class="lg:col-span-4">
+                        <div class="border border-studio-lightBorder dark:border-studio-darkBorder bg-neutral-100 dark:border-studio-darkBorder rounded-sm shadow-md overflow-hidden">
+                            <div class="aspect-[3/4] overflow-hidden">
+                                <img src="assets/images/milan.jpeg" 
+                                     alt="Milan Sherin standing on a hillside overlook" 
+                                     loading="lazy" 
+                                     class="w-full h-full object-cover object-[50%_40%]">
+                            </div>
+                            <div class="p-5 border-t border-studio-lightBorder dark:border-studio-darkBorder">
+                                <p class="text-xs font-mono uppercase tracking-widest text-studio-muted">Milan Sherin</p>
+                                <p class="text-base font-semibold mt-0.5">Systems &amp; Protocol Security</p>
+                                <p class="text-xs font-mono text-studio-muted mt-1">Terminal Identifier: "MITNICK"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workstation Philosophy & Practice (No Academic Details, No Spec Sheets) -->
+                    <div class="lg:col-span-8 flex flex-col justify-center">
+                        <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-2">Practice &amp; Environment</p>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tightest">Workstation &amp; Terminal Practice</h2>
+                        
+                        <div class="mt-6 space-y-4 text-sm text-studio-muted leading-relaxed">
+                            <p>
+                                Working from an isolated, minimal terminal environment under the identifier <span class="text-black dark:text-white font-mono font-semibold">"MITNICK"</span>, Milan investigates the seams where software abstractions meet low-level execution models. The daily rhythm is deliberate: inspecting how networks negotiate authenticity, how runtimes handle unexpected states, and how software can be hardened before deployment.
+                            </p>
+                            <p>
+                                Rather than relying on complex graphical layers, the workspace prioritizes clarity and purpose: lean terminal multiplexers, compiled utilities, and isolated virtual systems where experiments can be cleanly conducted and observed without noise.
+                            </p>
+                            <p>
+                                Every system is approached with quiet skepticism: assumptions are tested, boundaries are measured, and code is written to endure beyond the immediate task.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════ SECTION: #numbers (Metrics) ═══════════════════ -->
+            <section id="numbers" class="px-6 sm:px-12 lg:px-20 py-20 border-b border-studio-lightBorder dark:border-studio-darkBorder">
+                <div class="mb-10">
+                    <p class="text-xs font-mono uppercase tracking-widest text-studio-muted mb-1">By The Numbers</p>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tightest">Metrics</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-studio-lightBorder dark:divide-studio-darkBorder border border-studio-lightBorder dark:border-studio-darkBorder rounded-sm overflow-hidden">
+                    <div class="p-8 flex flex-col items-center text-center">
+                        <span class="text-4xl sm:text-5xl font-black tracking-tightest">6 Kyu</span>
+                        <span class="text-xs font-mono uppercase tracking-widest text-studio-muted mt-3">Codewars Rank</span>
+                        <span class="text-[10px] font-mono text-neutral-400 mt-1">Algorithmic Problem Solving</span>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center">
+                        <span class="text-4xl sm:text-5xl font-black tracking-tightest">05</span>
+                        <span class="text-xs font-mono uppercase tracking-widest text-studio-muted mt-3">Verified Credentials</span>
+                        <span class="text-[10px] font-mono text-neutral-400 mt-1">Security &amp; Automation</span>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center">
+                        <span class="text-4xl sm:text-5xl font-black tracking-tightest">7+</span>
+                        <span class="text-xs font-mono uppercase tracking-widest text-studio-muted mt-3">Engineered Repositories</span>
+                        <span class="text-[10px] font-mono text-neutral-400 mt-1">Low-Level &amp; Cryptographic Tools</span>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center">
+                        <span class="text-3xl sm:text-4xl font-black tracking-tightest">04:00 AM</span>
+                        <span class="text-xs font-mono uppercase tracking-widest text-studio-muted mt-3">Daily Deep-Work Cadence</span>
+                        <span class="text-[10px] font-mono text-neutral-400 mt-1">04:00&ndash;08:00 AM Focused Block</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════ TERMINAL STATUS ════════════════════════════════ -->
+            <section class="px-6 sm:px-12 lg:px-20 py-16 border-b border-studio-lightBorder dark:border-studio-darkBorder bg-black text-white">
+                <div class="flex items-center justify-between pb-4 border-b border-neutral-800">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-4 font-mono text-xs text-neutral-400">mitnick@workstation:~$ systemctl status milan.service</span>
+                    </div>
+                    <span class="text-xs font-mono text-emerald-400">ACTIVE (RUNNING)</span>
+                </div>
+                <div class="font-mono text-xs sm:text-sm mt-6 space-y-2 text-neutral-300">
+                    <p><span class="text-emerald-400">&bull; milan.service</span> - Milan Sherin Core Trajectory Daemon</p>
+                    <p class="text-neutral-500">&nbsp;&nbsp;&nbsp;&nbsp; Loaded: loaded (/etc/systemd/system/milan.service; enabled)</p>
+                    <p class="text-neutral-500">&nbsp;&nbsp;&nbsp;&nbsp; Active: <span class="text-emerald-400 font-bold">active (running)</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp; Tracks: [Systems Security Runtimes] [Bug-Bounty API Target Mode] [ISL Vision Model]</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp; Target: Systems Security Architecture / Intelligent Systems Guardrail Research</p>
+                    <p class="text-yellow-400/90">&gt; Schedule initialized: 04:00 &ndash; 08:00 AM daily deep-work code session active.</p>
+                </div>
+            </section>
+
+            <!-- ════════ FOOTER ══════════════════════════════════════════ -->
+            <footer class="px-6 sm:px-12 lg:px-20 py-16 bg-white dark:bg-studio-darkCanvas">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 text-xs font-mono leading-relaxed">
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Milan Sherin</p>
+                        <p class="text-studio-muted">
+                            Independent Systems &amp; Protocol Security Researcher.<br>
+                            Investigating low-level execution models, trust boundaries, and resilient software.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Focus Areas</p>
+                        <ul class="space-y-1.5 text-studio-muted">
+                            <li>Linux Systems Architecture</li>
+                            <li>Applied Cryptography</li>
+                            <li>Computer Vision (ISL)</li>
+                            <li>Autonomous Orchestration</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Network Coordinates</p>
+                        <ul class="space-y-2 text-studio-muted">
+                            <li>
+                                <a href="https://github.com/Milan-6" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white underline inline-flex items-center space-x-1.5">
+                                    <svg class="w-3.5 h-3.5 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    <span>GitHub: Milan-6</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/milan-sherin-aa3880447/" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white underline inline-flex items-center space-x-1.5">
+                                    <svg class="w-3.5 h-3.5 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                    <span>LinkedIn: Milan Sherin</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.codewars.com/users/Milan%20Sherin" target="_blank" rel="noopener noreferrer" class="hover:text-black dark:hover:text-white underline inline-flex items-center space-x-1.5">
+                                    <svg class="w-3.5 h-3.5 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l-10.392 6v12l10.392 6 10.392-6v-12l-10.392-6zm0 2.309l8.392 4.845v9.691l-8.392 4.846-8.392-4.846v-9.691l8.392-4.845zm-1 4.691v10h2v-10h-2z"/></svg>
+                                    <span>Codewars: 6 Kyu</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:milansherin@gmail.com" class="hover:text-black dark:hover:text-white underline inline-flex items-center space-x-1.5">
+                                    <svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                    <span>milansherin@gmail.com</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:text-right flex flex-col justify-between">
+                        <div>
+                            <p class="text-black dark:text-white font-bold mb-3 uppercase tracking-widest">Index</p>
+                            <a href="#works" class="text-studio-muted hover:text-black dark:hover:text-white underline block">6 Case Studies</a>
+                            <a href="#certifications" class="text-studio-muted hover:text-black dark:hover:text-white underline block mt-1">5 Certifications</a>
+                            <a href="#academics" class="text-studio-muted hover:text-black dark:hover:text-white underline block mt-1">Academic Record</a>
+                        </div>
+                        <p class="text-[11px] text-neutral-400 mt-6 md:mt-0">&copy; 2026 Milan Sherin &middot; Quiet &amp; Deliberate</p>
+                    </div>
+                </div>
+            </footer>
+
+        </main>
+        <div class="mt-4 flex items-center justify-between text-[11px] font-mono text-studio-muted px-2">
+            <span>MILAN SHERIN &middot; EDITION 2.3.0</span><span>SYSTEM ENCODING: UTF-8</span>
+        </div>
+    </div>
+
+    <!-- ════════ PROJECT CASE STUDY MODAL ═══════════════════════ -->
+    <div id="projectModal" 
+         class="project-modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-200"
+         role="dialog" 
+         aria-modal="true" 
+         aria-labelledby="projectModalTitle"
+         aria-hidden="true">
+        
+        <div class="project-modal-panel relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0c0c0e] border border-studio-lightBorder dark:border-studio-darkBorder rounded-sm shadow-2xl flex flex-col overflow-hidden">
+            
+            <!-- Modal Header Actions (Close + Prev/Next buttons) -->
+            <div class="absolute top-4 right-4 z-20 flex items-center space-x-2">
+                <button id="projectModalPrevBtn" type="button" aria-label="Previous project" title="Previous project (Left Arrow)"
+                        class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-white/90 dark:bg-black/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-black dark:text-white border border-studio-lightBorder dark:border-studio-darkBorder rounded transition-colors text-sm font-mono shadow-sm">
+                    &#8592;
+                </button>
+                <button id="projectModalNextBtn" type="button" aria-label="Next project" title="Next project (Right Arrow)"
+                        class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-white/90 dark:bg-black/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-black dark:text-white border border-studio-lightBorder dark:border-studio-darkBorder rounded transition-colors text-sm font-mono shadow-sm">
+                    &#8594;
+                </button>
+                <button id="projectModalCloseBtn" type="button" aria-label="Close modal" title="Close modal (Esc)"
+                        class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-white/90 dark:bg-black/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-black dark:text-white border border-studio-lightBorder dark:border-studio-darkBorder rounded transition-colors text-lg font-light leading-none shadow-sm">
+                    &#x2715;
+                </button>
+            </div>
+
+            <!-- Scrollable Content Container -->
+            <div id="projectModalScroll" class="overflow-y-auto overscroll-contain flex-1 focus:outline-none" tabindex="-1">
+                <!-- Dynamically rendered by renderProject(project) -->
+                <div id="projectModalContent" class="transition-opacity duration-150">
+                    <!-- Dynamic project markup injected here -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Java Script: Plugins (GLightbox, MoveTo, Prism), Projects Data, followed by Main JS -->
+    <script src="js/plugins.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
